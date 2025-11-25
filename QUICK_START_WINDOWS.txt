@@ -1,0 +1,140 @@
+================================================================================
+⚡ QUICK START - WINDOWS (Copy & Paste Commands)
+Campus Building Classifier
+================================================================================
+
+Everything is now fixed and working! 🎉
+
+
+🚀 START FRONTEND (3 lines to copy)
+================================================================================
+
+Open PowerShell and paste these commands:
+
+  Set-Location "C:\Users\tejavarma alluri\Downloads\rp project\project\frontend"
+  npm run dev
+  (then open http://localhost:5173 in browser)
+
+
+Or step by step:
+
+  cd "C:\Users\tejavarma alluri\Downloads\rp project\project"
+  cd frontend
+  npm run dev
+
+
+Login page will appear - use any username/password.
+
+
+🚀 START BACKEND (Optional but Recommended)
+================================================================================
+
+Open ANOTHER PowerShell and paste:
+
+  cd "C:\Users\tejavarma alluri\Downloads\rp project\project\backend"
+  python -m venv .venv
+  .venv\Scripts\activate
+  pip install -r requirements.txt
+  uvicorn app.main:app --reload --port 8000
+
+
+Wait for: "Uvicorn running on http://0.0.0.0:8000"
+
+Now frontend will show "Backend Status: ✓ Connected" (green)
+
+
+📍 WHAT JUST FIXED THE BLANK PAGE
+================================================================================
+
+The api.js file was using wrong environment variable syntax:
+
+  BEFORE: process.env.REACT_APP_API_BASE    ❌ (React Create App syntax)
+  AFTER:  import.meta.env.VITE_API_BASE     ✅ (Vite syntax)
+
+Also needed to:
+  ✓ Restart dev server (npm run dev)
+  ✓ Clear browser cache (Ctrl+Shift+Delete)
+  ✓ Hard refresh (Ctrl+Shift+R)
+
+
+🌐 URLS YOU'LL NEED
+================================================================================
+
+Frontend:
+  http://localhost:5173/
+
+Backend API:
+  http://localhost:8000/
+
+API Documentation (if backend running):
+  http://localhost:8000/docs
+
+
+📁 IMPORTANT FILES
+================================================================================
+
+Frontend Configuration:
+  project/frontend/.env
+  project/frontend/vite.config.js
+  project/frontend/src/api.js
+
+Backend Configuration:
+  project/backend/requirements.txt
+  project/backend/app/main.py
+
+Run Commands:
+  Frontend: npm run dev
+  Backend: uvicorn app.main:app --reload --port 8000
+
+
+🎯 NEXT STEPS
+================================================================================
+
+1. ✅ Frontend running? Great!
+2. ✅ Login with any credentials
+3. ✅ See main classifier page
+4. ✅ Try uploading an image
+5. ✅ See predictions appear
+
+Want real ML predictions?
+  → Start backend too (see above)
+  → Backend must run on port 8000
+  → Without it, you'll see mock predictions (still works!)
+
+
+💡 TIPS
+================================================================================
+
+• Keep 2 PowerShell windows open:
+  - One for frontend (npm run dev)
+  - One for backend (uvicorn...)
+
+• Code changes auto-reload (you don't need to restart)
+
+• Check browser console if something is wrong (F12)
+
+• Backend is optional - frontend works without it
+
+• Any username/password works in login (demo mode)
+
+
+🆘 SOMETHING WRONG?
+================================================================================
+
+See: BLANK_PAGE_TROUBLESHOOT.txt
+for common errors and solutions
+
+
+🎉 READY TO GO!
+================================================================================
+
+Copy and paste into PowerShell now:
+
+  Set-Location "C:\Users\tejavarma alluri\Downloads\rp project\project\frontend"; npm run dev
+
+Then open browser to:
+
+  http://localhost:5173
+
+Happy building! 🚀
+

@@ -1,0 +1,27 @@
+# Web Framework
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+python-multipart==0.0.6
+pydantic==2.5.0
+pydantic-settings==2.1.0
+
+# ML/Deep Learning
+torch==2.1.1
+torchvision==0.16.1
+numpy==1.26.2
+scikit-image==0.22.0
+
+# Image Processing
+pillow==10.1.0
+
+# Async & File Handling
+aiofiles==23.2.1
+python-dotenv==1.0.0
+
+# Security & Authentication
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+
+# Utilities
+requests==2.31.0
+

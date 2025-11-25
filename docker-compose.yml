@@ -1,0 +1,44 @@
+version: '3.9'
+
+services:
+  # Backend API service
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: campus-classifier-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - ./backend/app/models:/app/app/models:ro
+      - ./backend/app/uploads:/app/uploads
+    healthcheck:
+      test: ["CMD", "python", "-c", "import requests; requests.get('http://localhost:8000/ping')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 5s
+    restart: unless-stopped
+
+  # Frontend development server (optional - typically run separately with npm)
+  # Uncomment to run frontend in container as well
+  # frontend:
+  #   build:
+  #     context: ./frontend
+  #     dockerfile: Dockerfile.dev
+  #   container_name: campus-classifier-frontend
+  #   ports:
+  #     - "5173:5173"
+  #   depends_on:
+  #     - backend
+  #   environment:
+  #     - VITE_API_BASE=http://backend:8000
+  #   volumes:
+  #     - ./frontend/src:/app/src
+  #   restart: unless-stopped
+
+volumes:
+  models:
+  uploads:

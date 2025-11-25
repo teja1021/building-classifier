@@ -1,0 +1,246 @@
+================================================================================
+⚡ FRONTEND - QUICK START (3 STEPS)
+Campus Building Classifier
+================================================================================
+
+Everything is installed and ready to run!
+
+
+👇 3 SIMPLE STEPS TO START
+================================================================================
+
+STEP 1: Open PowerShell/Command Prompt
+───────────────────────────────────────
+Press: Windows Key + R
+Type: powershell
+Press: Enter
+
+
+STEP 2: Navigate to Frontend Folder
+───────────────────────────────────────
+Copy & paste this command:
+
+  cd "c:\Users\tejavarma alluri\Downloads\rp project\project\frontend"
+
+Press: Enter
+
+
+STEP 3: Start the Development Server
+───────────────────────────────────────
+Type:
+
+  npm run dev
+
+Press: Enter
+
+Wait for message:
+  "Local: http://localhost:5173/"
+
+Browser opens automatically!
+
+
+📝 LOGIN CREDENTIALS
+================================================================================
+
+Username: demo
+Password: password
+
+(Any non-empty values work - this is a demo app)
+
+
+✅ WHAT YOU'LL SEE
+================================================================================
+
+1. Login page appears
+2. Enter any username/password
+3. Main classifier page loads
+4. Drag image to upload area
+5. See predictions appear!
+
+
+🎯 TRY IT NOW
+================================================================================
+
+With Backend Running (Recommended):
+  • Terminal 1: npm run dev (in frontend folder)
+  • Terminal 2: uvicorn app.main:app --reload (in backend folder)
+  • Upload image → See real predictions
+
+Without Backend:
+  • Terminal 1: npm run dev (in frontend folder)
+  • Upload image → See mock predictions
+  • Both work! Backend is optional
+
+⚠️ Note: Backend must run on port 8000 for predictions to work
+
+
+📁 IMPORTANT FILES
+================================================================================
+
+Frontend Config:
+  .env                    → API server URL
+  package.json            → All npm commands
+
+Source Code:
+  src/App.jsx            → Main app logic
+  src/pages/Main.jsx     → Classifier page
+  src/api.js             → Backend communication
+
+Guides:
+  NPM_SCRIPTS_GUIDE.txt       → All commands explained
+  FRONTEND_COMPLETE_SUMMARY.txt → Full documentation
+  VISUAL_GUIDE.txt            → What you'll see
+
+
+🆘 TROUBLESHOOTING
+================================================================================
+
+Command not found "npm":
+  → Install Node.js from https://nodejs.org/
+  → Restart PowerShell
+  → Try again
+
+Port 5173 already in use:
+  → npm run dev -- --port 3000
+  (Uses port 3000 instead)
+
+Browser doesn't open:
+  → Manually go to: http://localhost:5173
+
+Backend not reachable:
+  → Start backend first (see below)
+  → Or just upload - mock inference works too
+
+Changes not appearing (hot reload):
+  → Stop: Ctrl+C
+  → Restart: npm run dev
+
+
+🔄 START BACKEND (Optional but Recommended)
+================================================================================
+
+If you want real predictions instead of mock:
+
+Open ANOTHER PowerShell window and:
+
+  cd "c:\Users\tejavarma alluri\Downloads\rp project\project\backend"
+
+Then:
+
+  python -m venv .venv
+  .venv\Scripts\activate
+  pip install -r requirements.txt
+  uvicorn app.main:app --reload --port 8000
+
+Wait for:
+  "Uvicorn running on http://0.0.0.0:8000"
+
+Now frontend has backend connection!
+
+
+📚 ALL AVAILABLE COMMANDS
+================================================================================
+
+Development:
+  npm run dev              → Start dev server (main command!)
+  npm run dev -- --port 3000 → Use different port
+
+Building:
+  npm run build            → Build for production
+  npm run preview          → Preview production build
+
+Code Quality:
+  npm run lint             → Check for errors
+  npm run format           → Auto-format code
+
+Maintenance:
+  npm install              → Install dependencies
+  npm install <package>    → Add new package
+  npm update               → Update packages
+
+See NPM_SCRIPTS_GUIDE.txt for full details
+
+
+🎨 CUSTOMIZATION
+================================================================================
+
+Change API Server:
+  Edit: .env
+  Change: VITE_API_BASE=http://your-server:8000
+  Restart: npm run dev
+
+Change Colors:
+  Edit: tailwind.config.js
+  (Basic Tailwind customization)
+
+Add Features:
+  Edit: src/pages/Main.jsx
+  Edit: src/components/UploadDropzone.jsx
+  Changes auto-reload!
+
+
+🚀 QUICK REFERENCE
+================================================================================
+
+Start:        npm run dev
+Build:        npm run build
+Stop:         Ctrl+C
+Reset:        npm install
+URL:          http://localhost:5173
+Backend:      http://localhost:8000
+
+
+📊 WHAT WORKS NOW
+================================================================================
+
+✅ Login page (any credentials)
+✅ Drag-and-drop image upload
+✅ Image preview
+✅ Real predictions (if backend running)
+✅ Mock predictions (if backend not running)
+✅ Top-5 predictions with confidence bars
+✅ Building labels display
+✅ Navigation to other pages
+✅ Responsive design (mobile, tablet, desktop)
+✅ Error handling & messages
+✅ Loading states
+
+
+🎉 YOU'RE READY!
+================================================================================
+
+The frontend is:
+  ✓ Fully installed
+  ✓ Configured
+  ✓ Ready to run
+  ✓ Working perfectly
+
+Next step:
+
+  npm run dev
+
+Then open:
+
+  http://localhost:5173
+
+And start building! 🚀
+
+
+💡 TIPS
+================================================================================
+
+• Keep dev server running in one terminal
+• Edit files in another editor/IDE
+• Changes appear instantly (hot reload)
+• Check browser console for errors (F12)
+• Test on mobile with browser's device mode (F12)
+• Backend is optional but recommended
+
+Happy coding! 🎨💻
+
+
+================================================================================
+Need more help? See FRONTEND_COMPLETE_SUMMARY.txt
+For all commands, see NPM_SCRIPTS_GUIDE.txt
+For visual walkthrough, see VISUAL_GUIDE.txt
+================================================================================

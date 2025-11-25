@@ -1,0 +1,52 @@
+{
+  "buildings": [
+    {
+      "id": 1,
+      "name": "CSE Building",
+      "images": 234,
+      "accuracy": 0.92
+    },
+    {
+      "id": 2,
+      "name": "ECE Building",
+      "images": 189,
+      "accuracy": 0.88
+    },
+    {
+      "id": 3,
+      "name": "Mechanical Building",
+      "images": 156,
+      "accuracy": 0.85
+    },
+    {
+      "id": 4,
+      "name": "Civil Engineering Building",
+      "images": 142,
+      "accuracy": 0.87
+    },
+    {
+      "id": 5,
+      "name": "LA Lawns 1",
+      "images": 89,
+      "accuracy": 0.91
+    },
+    {
+      "id": 6,
+      "name": "LA Lawns 2",
+      "images": 76,
+      "accuracy": 0.89
+    },
+    {
+      "id": 7,
+      "name": "BMBT Building",
+      "images": 98,
+      "accuracy": 0.86
+    },
+    {
+      "id": 8,
+      "name": "Dispensary",
+      "images": 64,
+      "accuracy": 0.84
+    }
+  ]
+}

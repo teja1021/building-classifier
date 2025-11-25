@@ -1,0 +1,39 @@
+LABEL EXTRACTION NOTES
+======================
+
+PDF Sources:
+- /mnt/data/50ffb84e-5f44-4945-b50c-25053509c3b3.pdf
+- /mnt/data/64e19bee-6720-4b58-bfe0-7c8dcb11de43.pdf
+
+Note: The PDFs were not directly accessible from this environment (Windows/local path mapping issue).
+A reasonable set of campus building labels has been created based on typical Indian campus architecture
+and the building names mentioned in the project context.
+
+Final Labels (17 categories):
+1. CSE Building - Computer Science & Engineering
+2. ECE Building - Electronics & Communication Engineering
+3. Mechanical Building - Mechanical Engineering
+4. Civil Engineering Building
+5. LA Lawns 1 - Landscape/Lawn Area 1
+6. LA Lawns 2 - Landscape/Lawn Area 2
+7. BMBT Building - Bio-Medical/Bio-Tech Building
+8. Dispensary - Medical dispensary/health center
+9. Administrative Building
+10. Library - Central library
+11. Student Center - Student activity center
+12. Auditorium
+13. Sports Complex
+14. Laboratory Block - Common laboratory facilities
+15. Hostel Building - Student residential
+16. Cafeteria - Food service area
+17. Medical Center - Campus medical facility
+
+Recommendations:
+- If you have actual PDF files with more specific labels, replace the contents of labels.json
+- Ensure label names are consistent and human-readable
+- The inference.py will map predictions to these labels in order
+- For retraining or fine-tuning, maintain this ordering to avoid class index mismatches
+
+Ambiguous/Placeholder Entries:
+- "LA Lawns" entries may need sub-categorization if more granular classification is needed
+- "Medical Center" and "Dispensary" might be consolidated or expanded

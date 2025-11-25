@@ -1,0 +1,352 @@
+================================================================================
+EXACT RUN COMMANDS - Campus Building Classifier
+================================================================================
+
+Navigate to project root first:
+  cd c:\Users\tejavarma alluri\Downloads\rp project\project
+
+
+OPTION 1: LOCAL DEVELOPMENT (RECOMMENDED FOR DEVELOPMENT)
+================================================================================
+
+Terminal 1 - Start Backend:
+  cd backend
+  python -m venv .venv
+  .venv\Scripts\activate
+  pip install -r requirements.txt
+  uvicorn app.main:app --reload --port 8000
+
+  Expected output:
+    INFO:     Uvicorn running on http://0.0.0.0:8000
+    INFO:     Application startup complete
+
+  Access:
+    API: http://localhost:8000
+    Docs: http://localhost:8000/docs
+    Health: http://localhost:8000/ping
+
+
+Terminal 2 - Start Frontend:
+  cd frontend
+  npm install
+  npm run dev
+
+  Expected output:
+    VITE v5.0.8  ready in 123 ms
+    ➜  Local:   http://localhost:5173/
+
+  Access:
+    App: http://localhost:5173
+
+
+Terminal 3 (Optional) - Run Demo Notebook:
+  cd notebooks
+  pip install jupyter matplotlib pillow requests
+  jupyter notebook demo_inference.ipynb
+
+  Open http://localhost:8888 in browser
+
+
+OPTION 2: DOCKER COMPOSE (PRODUCTION-LIKE)
+================================================================================
+
+One Command - Build & Run Both Services:
+  docker-compose up --build
+
+  Expected output:
+    campus-classifier-backend | [Inference] Using device: cpu
+    campus-classifier-backend | Application startup complete
+
+  Access:
+    Backend: http://localhost:8000
+    Docs: http://localhost:8000/docs
+    Frontend: http://localhost:5173 (if enabled in docker-compose.yml)
+
+
+Run in Background:
+  docker-compose up -d
+
+View Logs:
+  docker-compose logs -f backend
+  docker-compose logs -f frontend
+
+Stop Services:
+  docker-compose down
+
+Remove Everything:
+  docker-compose down -v
+
+
+OPTION 3: MANUAL DOCKER (ADVANCED)
+================================================================================
+
+Build Backend Image:
+  docker build -t campus-classifier:latest ./backend
+
+Run Backend Container:
+  docker run -p 8000:8000 campus-classifier:latest
+
+With Volume Mounts:
+  docker run -p 8000:8000 \
+    -v %cd%\backend\app\models:/app/app/models:ro \
+    -v %cd%\backend\app\uploads:/app/uploads \
+    campus-classifier:latest
+
+
+TESTING THE APPLICATION
+================================================================================
+
+1. Check Backend Health:
+   curl http://localhost:8000/ping
+
+   Expected response:
+   {"status":"ok","timestamp":"...","message":"Campus Building Classifier API is running"}
+
+2. Get Available Labels:
+   curl http://localhost:8000/labels
+
+   Expected response:
+   {"labels":["CSE Building","ECE Building",...],"count":17}
+
+3. Test Prediction (with sample image):
+   $image = [System.IO.File]::ReadAllBytes("path\to\image.jpg")
+   $headers = @{"Content-Type" = "multipart/form-data"}
+   Invoke-WebRequest -Uri http://localhost:8000/predict `
+     -Method Post -InFile "path\to\image.jpg"
+
+4. Open Frontend:
+   Open browser to http://localhost:5173
+   Login with any username/password
+   Drag image to upload area
+   See predictions!
+
+
+ENVIRONMENT VARIABLES (OPTIONAL)
+================================================================================
+
+Backend:
+  set PYTHONUNBUFFERED=1      # Better logging
+  set DEVICE=cuda             # Force CUDA (if available)
+
+Frontend:
+  set VITE_API_BASE=http://your-api-server:8000
+
+
+DEPENDENCY INSTALLATION (If Needed)
+================================================================================
+
+Install Backend Dependencies Only:
+  cd backend
+  pip install -r requirements.txt
+
+Install Frontend Dependencies Only:
+  cd frontend
+  npm install
+
+Install Jupyter for Notebooks:
+  pip install jupyter notebook matplotlib pillow requests
+
+
+PORT CONFIGURATION
+================================================================================
+
+Default Ports:
+  Backend API: 8000
+  Frontend: 5173
+
+Change Backend Port:
+  uvicorn app.main:app --reload --port 9000
+
+Change Frontend Port:
+  npm run dev -- --port 3000
+
+
+MONITORING & TROUBLESHOOTING
+================================================================================
+
+Check if Ports are Available:
+  lsof -i :8000    # macOS/Linux
+  netstat -ano | findstr :8000  # Windows
+
+Kill Process Using Port:
+  kill -9 <PID>    # macOS/Linux
+  taskkill /PID <PID> /F  # Windows
+
+View Backend Logs (Docker):
+  docker-compose logs -f backend
+
+View Frontend Logs (Dev):
+  Check Terminal 2 output
+  Check Browser Console (F12)
+
+Test Model Loading:
+  python -c "import torch; print(torch.cuda.is_available())"
+
+
+DEVELOPMENT WORKFLOW
+================================================================================
+
+1. Make Backend Changes:
+   - Edit backend/app/*.py
+   - Backend reloads automatically (--reload flag)
+   - Refresh browser to see changes
+
+2. Make Frontend Changes:
+   - Edit frontend/src/**/*.jsx or .css
+   - Frontend hot-reloads automatically
+   - Changes appear instantly in browser
+
+3. Add New Dependencies:
+   Backend:
+     pip install <package>
+     pip freeze > requirements.txt
+   
+   Frontend:
+     npm install <package>
+
+4. Test with New Images:
+   - Use any JPG, PNG, GIF, BMP, or WebP
+   - Drag to upload area in app
+   - See predictions
+
+
+PRODUCTION DEPLOYMENT
+================================================================================
+
+Using Docker on Remote Server:
+  docker-compose -f docker-compose.yml up -d
+
+With HTTPS (Use reverse proxy like Nginx):
+  Configure Nginx to forward requests to http://localhost:8000
+
+Environment-based Configuration:
+  Create .env file with:
+    PYTHONUNBUFFERED=1
+    API_CORS_ORIGINS=https://your-domain.com
+  
+  Use in docker-compose.yml:
+    env_file: .env
+
+
+QUICK VERIFICATION CHECKLIST
+================================================================================
+
+✓ Backend Started:
+  curl http://localhost:8000/ping
+  Response: {"status":"ok",...}
+
+✓ Frontend Started:
+  Browser opens http://localhost:5173 without errors
+
+✓ Connected:
+  Frontend shows "Backend Status: ✓ Connected"
+  API response shows no CORS errors
+
+✓ Login Works:
+  Enter any username/password
+  Redirects to main page
+
+✓ Upload Works:
+  Drag image to dropzone
+  See file preview
+  Get prediction results
+
+✓ Labels Loaded:
+  Bottom of main page shows 17 building labels
+
+✓ Mock Inference Works:
+  Result shows "Using mock inference" in notes
+  No model file needed
+
+
+COMMON COMMANDS REFERENCE
+================================================================================
+
+Backend:
+  Start:      uvicorn app.main:app --reload --port 8000
+  With Env:   set PYTHONUNBUFFERED=1 && uvicorn app.main:app --reload
+  Docs:       curl http://localhost:8000/docs
+  Health:     curl http://localhost:8000/ping
+
+Frontend:
+  Install:    npm install
+  Start:      npm run dev
+  Build:      npm run build
+  Preview:    npm run preview
+
+Docker:
+  Build:      docker-compose build
+  Up:         docker-compose up
+  Logs:       docker-compose logs -f
+  Down:       docker-compose down
+  Clean:      docker-compose down -v
+
+Jupyter:
+  Start:      jupyter notebook notebooks/demo_inference.ipynb
+  Kill:       Press Ctrl+C
+
+
+TIPS & TRICKS
+================================================================================
+
+1. Faster Backend Startup:
+   Use venv with packages already installed
+
+2. Better Error Messages:
+   Set PYTHONUNBUFFERED=1 before starting backend
+
+3. Hot Reload Disabled?
+   Restart with --reload flag
+
+4. Port Already in Use?
+   Change port number or kill process using it
+
+5. CORS Errors?
+   Check API_BASE in frontend/src/api.js matches backend URL
+
+6. Model Not Loading?
+   Check backend logs for error messages
+   Verify model file exists and format is correct
+
+7. Want to See API Docs?
+   Open http://localhost:8000/docs (interactive Swagger UI)
+
+8. Debug Frontend Requests?
+   Open DevTools (F12) → Network tab → See API calls
+
+9. Testing with cURL:
+   GET:  curl http://localhost:8000/labels
+   POST: curl -F "file=@image.jpg" http://localhost:8000/predict
+
+
+NEXT RUN SESSIONS
+================================================================================
+
+If Restarting Later:
+
+Terminal 1 (Backend):
+  cd c:\Users\tejavarma alluri\Downloads\rp project\project\backend
+  .venv\Scripts\activate
+  uvicorn app.main:app --reload --port 8000
+
+Terminal 2 (Frontend):
+  cd c:\Users\tejavarma alluri\Downloads\rp project\project\frontend
+  npm run dev
+
+Then open: http://localhost:5173
+
+
+SUPPORT & DOCUMENTATION
+================================================================================
+
+API Documentation:       http://localhost:8000/docs
+Full README:             project/README.md
+Model Integration:       backend/app/models/README.txt
+Label Extraction Notes:  backend/app/labels_extraction_notes.txt
+Demo Notebook:           notebooks/demo_inference.ipynb
+Setup Summary:           PROJECT_SETUP_SUMMARY.txt (this file)
+
+
+================================================================================
+Ready to code! Start with Option 1 or Option 2 above.
+================================================================================

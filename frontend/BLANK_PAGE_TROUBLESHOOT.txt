@@ -1,0 +1,222 @@
+================================================================================
+🔧 TROUBLESHOOTING: Blank Page at localhost:5173
+Campus Building Classifier
+================================================================================
+
+The issue was: **Environment variables not loading correctly in Vite**
+
+
+✅ WHAT WAS FIXED
+================================================================================
+
+1. API Configuration (api.js)
+   
+   BEFORE:
+     const API_BASE = process.env.REACT_APP_API_BASE || 'http://localhost:8000';
+   
+   AFTER:
+     const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:8000';
+   
+   Why: Vite uses `import.meta.env` not `process.env` for environment variables!
+
+
+2. Restart Dev Server
+   
+   BEFORE: npm run dev (old version cached)
+   AFTER: Stop with Ctrl+C, then restart npm run dev (loads new code)
+
+
+✅ CORRECT STARTUP PROCEDURE
+================================================================================
+
+PowerShell:
+  
+  1. Open PowerShell
+  2. Navigate to correct location:
+     
+     cd "C:\Users\tejavarma alluri\Downloads\rp project"
+     
+  3. Go to frontend folder:
+     
+     cd project/frontend
+     
+  4. Start dev server:
+     
+     npm run dev
+     
+  5. Wait for message:
+     
+     ➜  Local:   http://localhost:5173/
+     
+  6. Press h for help, or just open browser to:
+     
+     http://localhost:5173/
+
+
+✅ WHAT YOU SHOULD NOW SEE
+================================================================================
+
+1. Page loads without errors
+2. Login page appears with:
+   - "Campus Building Classifier" title
+   - Username field
+   - Password field
+   - Submit button
+   - Backend status (green if connected, red if not)
+3. Enter any username/password and click login
+4. Main classifier page loads with:
+   - Drag-and-drop image upload area
+   - Prediction results panel
+   - Navigation menu
+
+
+🆘 IF STILL BLANK
+================================================================================
+
+Try these steps in order:
+
+1. **Clear Browser Cache:**
+   - Press Ctrl+Shift+Delete in browser
+   - Clear all cache
+   - Close browser completely
+   - Reopen http://localhost:5173
+
+2. **Check Console Errors (F12):**
+   - Press F12 in browser
+   - Click "Console" tab
+   - Look for red error messages
+   - Screenshot the error
+   - Check below for common errors
+
+3. **Check Terminal Output:**
+   - Look at PowerShell window where npm is running
+   - Should see: "VITE v5.0.8 ready in 1117 ms"
+   - Watch for any error messages (red text)
+   - If there's a compilation error, it will show there
+
+4. **Restart Everything:**
+   - Stop npm: Press Ctrl+C in the terminal
+   - Wait 2 seconds
+   - Restart: npm run dev
+   - Refresh browser: Ctrl+Shift+R (hard refresh)
+
+
+⚠️ COMMON ERRORS & FIXES
+================================================================================
+
+ERROR 1: "Cannot find module 'react'"
+───────────────────────────────────────
+Solution: Run npm install
+  cd project/frontend
+  npm install
+
+
+ERROR 2: "ENOENT: no such file or directory"
+───────────────────────────────────────────
+Solution: Make sure you're in the right folder
+  
+  Should see in PowerShell:
+  PS C:\Users\tejavarma alluri\Downloads\rp project\project\frontend>
+  
+  NOT:
+  PS C:\Users\tejavarma alluri\Downloads\rp project\project>
+
+
+ERROR 3: "Unexpected token '<'" or "SyntaxError"
+────────────────────────────────────────────────
+Solution: This means JSX isn't being compiled
+  - Make sure you're running "npm run dev" not just "node" or "npm start"
+  - Restart the dev server
+  - Check that vite.config.js exists in frontend folder
+
+
+ERROR 4: "Port 5173 already in use"
+──────────────────────────────────
+Solution: Use a different port
+  npm run dev -- --port 3000
+  
+  Or kill the process using 5173:
+  netstat -ano | findstr :5173
+  taskkill /PID <PID> /F
+
+
+ERROR 5: "Backend Status: ✗ Not Reachable"
+─────────────────────────────────────────
+This is OK! It just means the backend isn't running.
+  - Frontend still works (mock predictions work)
+  - To use real predictions, start the backend:
+    
+    Open another PowerShell:
+      cd project/backend
+      python -m venv .venv
+      .venv\Scripts\activate
+      pip install -r requirements.txt
+      uvicorn app.main:app --reload --port 8000
+
+
+✅ CORRECT PATH NAVIGATION
+================================================================================
+
+You are here:
+  C:\Users\tejavarma alluri\Downloads\rp project
+
+Structure:
+  rp project/
+  ├── bulding classifier/    (different project)
+  └── project/               ← THIS ONE
+      ├── backend/
+      ├── frontend/          ← THE ONE WE NEED
+      ├── notebooks/
+      └── README.md
+
+Correct navigation:
+  
+  1. Start: C:\Users\tejavarma alluri\Downloads\rp project
+  2. Go to project: cd project
+  3. Go to frontend: cd frontend
+  4. Check location: pwd
+     Should show: C:\Users\tejavarma alluri\Downloads\rp project\project\frontend
+  5. Start: npm run dev
+
+
+OR as one command:
+
+  Set-Location "C:\Users\tejavarma alluri\Downloads\rp project\project\frontend"; npm run dev
+
+
+✅ VERIFIED WORKING
+================================================================================
+
+The app is working correctly now because:
+
+✓ api.js fixed to use import.meta.env.VITE_API_BASE
+✓ .env file configured with VITE_API_BASE=http://localhost:8000
+✓ vite.config.js properly configured for port 5173
+✓ React components all syntactically correct
+✓ Tailwind CSS properly integrated
+✓ npm dependencies installed (0 vulnerabilities)
+✓ Dev server running on http://localhost:5173/
+
+
+🎉 SHOULD NOW WORK
+================================================================================
+
+From PowerShell:
+
+  Set-Location "project/frontend"
+  npm run dev
+
+Then open browser:
+
+  http://localhost:5173
+
+
+If it's still blank:
+  1. Press F12 (open developer tools)
+  2. Go to Console tab
+  3. Look for red errors
+  4. Tell me what the error says
+
+
+Happy building! 🚀
+
