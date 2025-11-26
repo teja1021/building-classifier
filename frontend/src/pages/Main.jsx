@@ -13,15 +13,19 @@ function Main({ user, onLogout, apiHealthy }) {
     const loadLabels = async () => {
       try {
         const labelsData = await getLabels();
-        setLabels(labelsData);
+        setLabels(labelsData || []);
       } catch (err) {
         console.error('Error loading labels:', err);
-        setError('Failed to load labels');
+        // Don't show error, just set empty labels
+        setLabels([]);
       }
     };
 
     if (apiHealthy) {
       loadLabels();
+    } else {
+      // If API is not healthy, set empty labels (don't crash)
+      setLabels([]);
     }
   }, [apiHealthy]);
 
@@ -166,7 +170,7 @@ function Main({ user, onLogout, apiHealthy }) {
         </div>
 
         {/* Available Labels */}
-        {labels.length > 0 && (
+        {labels && labels.length > 0 && (
           <div className="mt-8 bg-white rounded-lg shadow-md p-6">
             <h3 className="text-lg font-bold text-slate-900 mb-4">Available Labels ({labels.length})</h3>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2">
