@@ -1,9 +1,17 @@
 import axios from 'axios';
 
 // Configuration
-const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:8000';
+// In development use local API by default. In production prefer a configured
+// VITE_API_BASE; if it's missing we'll fall back to the current origin so
+// deployments that host API on the same domain still work.
+const API_BASE = import.meta.env.VITE_API_BASE || (
+  import.meta.env.PROD ? window.location.origin : 'http://localhost:8000'
+);
 
-console.log(`[API] Using backend at: ${API_BASE}`);
+if (!import.meta.env.PROD) {
+  // Only verbose-log in development for easier debugging
+  console.log(`[API] Using backend at: ${API_BASE}`);
+}
 
 const client = axios.create({
   baseURL: API_BASE,
