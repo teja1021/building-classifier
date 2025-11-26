@@ -17,13 +17,18 @@ function App() {
   useEffect(() => {
     const checkAPI = async () => {
       try {
-        const healthy = await isAPIReachable();
+        // Set a timeout so API check doesn't block page rendering
+        const timeoutPromise = new Promise((_, reject) => 
+          setTimeout(() => reject(new Error('API check timeout')), 3000)
+        );
+        const healthy = await Promise.race([isAPIReachable(), timeoutPromise]);
         setApiHealthy(healthy);
         if (!healthy) {
-          console.warn('Backend API is not reachable at http://localhost:8000');
+          console.warn('Backend API is not reachable');
         }
       } catch (error) {
-        console.error('Error checking API:', error);
+        console.warn('API health check failed or timed out:', error.message);
+        setApiHealthy(false);
       } finally {
         setLoading(false);
       }
